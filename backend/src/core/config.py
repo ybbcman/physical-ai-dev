@@ -5,15 +5,16 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
-    APP_NAME : str = "Maintanance AI Portfolio API"
+    app_name : str = "Maintanance AI Portfolio API"
 
     # .env
-    SECRET_KEY: str = Field(default="test-key")
-    APP_ENV: str = Field(default="dev")
-    APP_PORT: int = Field(default=8000)
-    PROJECT_NAME: str = Field(default="physical-ai-dev")
-    VERSION: str = Field(default="v1")
-    DEBUG: bool = Field(default=True)
+    secret_key: str = Field(default="test-key")
+    app_env: str = Field(default="dev")
+    app_port: int = Field(default=8000)
+    project_name: str = Field(default="physical-ai-dev")
+    api_version: str = Field(default="v1")
+    debug: bool = Field(default=True)
+    app_version: str = "0.1.0"
     
     # Redis
     REDIS_PORT: int = Field(default=6379)

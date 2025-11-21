@@ -22,14 +22,14 @@ def create_app() -> FastAPI:
     app = FastAPI(
         title="physical-ai-dev",
         description="base project for fastapi backend",
-        version=settings.VERSION,
-        openapi_url=f"/{settings.VERSION}/openapi.json",
+        version=settings.api_version,
+        openapi_url=f"/{settings.api_version}/openapi.json",
         openapi_tags=tags_metadata,
     )
     app.add_middleware(CORSMiddleware, allow_origins=["*"])
     app.add_event_handler("startup", on_startup)
     app.include_router(routes.home_router)
-    app.include_router(api_router, prefix=f"/api/{settings.VERSION}")
+    app.include_router(api_router, prefix=f"/api/{settings.api_version}")
 
     return app
 
