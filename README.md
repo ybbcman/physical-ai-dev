@@ -1,13 +1,23 @@
-<p align="center">
-    <a href="https://github.com/ybbcman/physical-ai-dev/actions">
-        <img alt="GitHub Actions status" src="https://github.com/ybbcman/physical-ai-dev/actions/workflows/main.yml/badge.svg">
-    </a>
-    <a href="https://github.com/ybbcman/physical-ai-dev/releases"><img alt="Release Status" src="https://img.shields.io/github/v/release/ybbcman/physical-ai-dev"></a>
-</p>
+# Maintenance AI Portfolio API
 
+FastAPI로 만든 포트폴리오용 백엔드 프로젝트입니다.  
+향후 설비/설비 관리, 로그 분석, AI 서빙 기능 등을 붙일 예정입니다.
 
-# physical-ai-dev
+## Requirements
 
-## Usage
+- Python 3.10+
+- pip
+- (optional) virtualenv 또는 venv
 
-## Backend local development, additional details
+## 설치 & 실행
+
+```bash
+git clone https://github.com/ybbcman/physical-ai-dev.git
+cd physical-ai-dev
+
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+
+pip install -r requirements.txt
+
+uvicorn backend.src.main:app --reload
