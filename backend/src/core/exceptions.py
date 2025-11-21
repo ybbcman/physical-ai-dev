@@ -1,6 +1,6 @@
-class Physical-Ai-DevException(Exception):
+class PhysicalAiDevException(Exception):
     pass
 
 
-class ObjectNotFound(Physical-Ai-DevException):
+class ObjectNotFound(PhysicalAiDevException):
     pass
