@@ -17,9 +17,13 @@ class Settings(BaseSettings):
     app_version: str = "0.1.0"
     
     # Redis
-    REDIS_PORT: int = Field(default=6379)
+    redis_port: int = Field(default=6379)
     
     # Ollama
-    OLLAMA_HOST: str = Field(default="http://host.docker.internal:11434")
+    ollama_host: str = Field(default="http://host.docker.internal:11434")
     
+    # Database
+    database_url: str ="sqlite:///./app.db"
+
+
 settings = Settings()

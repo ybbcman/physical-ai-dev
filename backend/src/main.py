@@ -9,6 +9,7 @@ from backend.src.api.v1 import api_router
 from backend.src.common.exceptions import BeException
 from backend.src.common.response import ApiResponse
 from backend.src.core.config import settings
+from backend.src.db.init_db import init_db
 
 
 logger = logging.getLogger(__name__)
@@ -38,6 +39,7 @@ def create_app() -> FastAPI:
 
 def on_startup() -> None:
     logger.info("FastAPI app running...")
+    init_db()
 
 app = create_app()
 
