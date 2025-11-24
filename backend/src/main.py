@@ -1,10 +1,13 @@
 import logging
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 from backend.src.api import routes
 from backend.src.api.v1 import api_router
+from backend.src.common.exceptions import BeException
+from backend.src.common.response import ApiResponse
 from backend.src.core.config import settings
 
 
@@ -37,3 +40,14 @@ def on_startup() -> None:
     logger.info("FastAPI app running...")
 
 app = create_app()
+
+@app.exception_handler(BeException)
+async def exception_handler(request: Request, exc: BeException):
+    return JSONResponse(
+        status_code = exc.status_code,
+        content = ApiResponse(
+            success = False,
+            message = exc.message,
+            data = None
+        ).model_dump()
+    )
