@@ -55,3 +55,6 @@ cookiecutter-pypackage-env/
 
 # virtual environment
 venv/
+
+# database
+app.db

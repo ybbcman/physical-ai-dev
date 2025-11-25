@@ -1,3 +1,4 @@
+import logging
 from typing import List
 from sqlmodel import Session
 
@@ -28,8 +29,11 @@ class UserService:
 
         return UserRead.model_validate(user)
     
-    def list_users(self) -> List[UserRead]:
+    def list_users(self):
         users = self.repo.list()
+        if not users:
+            raise BeException("no users existed")
+                
         return [UserRead.model_validate(user) for user in users]
     
     def delete_user(self, user_id: int) -> None:

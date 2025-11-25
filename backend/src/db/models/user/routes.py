@@ -1,3 +1,4 @@
+import logging
 from typing import List
 from fastapi import APIRouter, Depends
 from sqlmodel import Session
@@ -21,7 +22,7 @@ def create_user(
     user = service.create_user(data)
     return ApiResponse(data=user)
 
-@router.get("", response_model=ApiResponse[UserRead], summary="Get user by id")
+@router.get("/{user_id}", response_model=ApiResponse[UserRead], summary="Get user by id")
 def get_user(
     user_id: int,
     service: UserService = Depends(get_user_service)
@@ -29,7 +30,7 @@ def get_user(
     user = service.get_user(user_id)
     return ApiResponse(data=user)
 
-@router.get("", response_model=List[ApiResponse[UserRead]], summary="List users")
+@router.get("", response_model=ApiResponse[list[UserRead]], summary="List users")
 def list_users(
     service: UserService = Depends(get_user_service)
 ):
@@ -45,6 +46,7 @@ def update_user(
     user = service.update_user(user_id, data)
     return ApiResponse(data=user)
 
+@router.delete("/{user_id}", response_model=ApiResponse[dict], summary="Delete user")
 def delete_user(
     user_id: int,
     service: UserService = Depends(get_user_service)
