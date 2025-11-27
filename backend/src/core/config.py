@@ -25,5 +25,9 @@ class Settings(BaseSettings):
     # Database
     database_url: str ="sqlite:///./app.db"
 
+    # JWT 
+    jwt_secret_key: str = Field(default="test-key")
+    jwt_access_token_expire_minutes: int = Field(default=30)
+    jwt_algorithm: str = Field(default="HS256")
 
 settings = Settings()
