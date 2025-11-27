@@ -33,12 +33,11 @@ class AuthService:
             minutes=settings.jwt_access_token_expire_minutes
         )
         access_token = create_access_token(
-            data={"sub": user.id},
+            data={"sub": str(user.id)},
             expires_delta=access_token_expires
         )
         return TokenResponse(access_token=access_token)
     
-        
     def login(self, request: LoginRequest) -> TokenResponse:
         user = self.user_repo.get_by_email(request.email)
         if not user:
@@ -51,8 +50,10 @@ class AuthService:
             minutes=settings.jwt_access_token_expire_minutes
         )
         access_token = create_access_token(
-            data={"sub": user.id},
+            data={"sub": str(user.id)},
             expires_delta=access_token_expires
         )
         return TokenResponse(access_token=access_token)
-        
+    
+    def login_with_email_password(self, email: str, password: str) -> TokenResponse:
+        return self.login(LoginRequest(email=email, password=password))

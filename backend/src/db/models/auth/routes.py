@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends
+from fastapi.security import OAuth2PasswordRequestForm
 from sqlmodel import Session
 
 from backend.src.db.models.auth.service import AuthService
@@ -14,9 +15,9 @@ def get_auth_service(session: Session = Depends(get_session)) -> AuthService:
 @router.post("/register", response_model=ApiResponse[TokenResponse], summary="Register a new user")
 def register(request: RegisterRequest, service: AuthService = Depends(get_auth_service)):
     token = service.register(request)
-    return ApiResponse(data=token)
+    return ApiResponse[TokenResponse](data=token)
 
 @router.post("/login", response_model=ApiResponse[TokenResponse], summary="Login a user")
-def login(request: LoginRequest, service: AuthService = Depends(get_auth_service)):
-    token = service.login(request)
+def login(form: OAuth2PasswordRequestForm = Depends(), service: AuthService = Depends(get_auth_service)):
+    token = service.login_with_email_password(email=form.username, password=form.password)
     return ApiResponse(data=token)
